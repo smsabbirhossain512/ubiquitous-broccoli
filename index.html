@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Showcase Template</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .product-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .image-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .main-image {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .main-image img:hover {
+            transform: scale(1.02);
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        
+        .thumbnail:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+        
+        .thumbnail.active {
+            border-color: #3498db;
+            opacity: 1;
+            box-shadow: 0 3px 6px rgba(52, 152, 219, 0.3);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .product-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .product-description {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        
+        .product-features {
+            margin-bottom: 25px;
+        }
+        
+        .product-features li {
+            margin-bottom: 8px;
+            list-style-type: none;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .product-features li:before {
+            content: "✓";
+            color: #27ae60;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d5dbdb;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-count {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .product-showcase {
+                flex-direction: column;
+            }
+            
+            .image-section, .info-section {
+                width: 100%;
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+            
+            .product-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Premium Product Showcase</h1>
+            <p>Click on the thumbnail images to view different product angles and details</p>
+        </header>
+        
+        <div class="product-showcase">
+            <div class="image-section">
+                <div class="main-image">
+                    <img id="mainImage" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Wireless Headphones">
+                </div>
+                
+                <div class="thumbnail-container">
+                    <div class="thumbnail active" data-image="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Headphones Front View">
+                    </div>
+                    <div class="thumbnail" data-image="https://images.unsplash.com/photo-1484704849700-f032a568e944?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80">
+                        <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Headphones Side View">
+                    </div>
+                    <div class="thumbnail" data-image="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80">
+                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Headphones in Case">
+                    </div>
+                    <div class="thumbnail" data-image="https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80">
+                        <img src="https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Headphones on Person">
+                    </div>
+                </div>
+                
+                <div class="product-count">Showing 1 of 4 product images</div>
+            </div>
+            
+            <div class="info-section">
+                <h2 class="product-title">Wireless Bluetooth Headphones</h2>
+                <div class="product-price">$129.99</div>
+                
+                <p class="product-description">
+                    Experience premium sound quality with our latest wireless headphones. Featuring active noise cancellation, 30-hour battery life, and ergonomic design for all-day comfort. Perfect for music lovers, gamers, and professionals.
+                </p>
+                
+                <div class="product-features">
+                    <h3>Key Features:</h3>
+                    <ul>
+                        <li>Active Noise Cancellation technology</li>
+                        <li>30-hour battery life with quick charge</li>
+                        <li>Premium sound quality with deep bass</li>
+                        <li>Comfortable over-ear design with memory foam</li>
+                        <li>Voice assistant integration (Siri, Google Assistant)</li>
+                        <li>Foldable design with travel case included</li>
+                    </ul>
+                </div>
+                
+                <div class="cta-buttons">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-heart"></i> Add to Wishlist
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Product Showcase Template &copy; 2023 | All images from Unsplash</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.getElementById('mainImage');
+            const productCount = document.querySelector('.product-count');
+            let activeIndex = 0;
+            const totalImages = thumbnails.length;
+            
+            // Update the product count text
+            function updateProductCount() {
+                productCount.textContent = `Showing ${activeIndex + 1} of ${totalImages} product images`;
+            }
+            
+            // Initialize with first thumbnail active
+            updateProductCount();
+            
+            // Add click event to each thumbnail
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.addEventListener('click', function() {
+                    // Get the image URL from data attribute
+                    const newImageSrc = this.getAttribute('data-image');
+                    
+                    // Update main image
+                    mainImage.src = newImageSrc;
+                    
+                    // Remove active class from all thumbnails
+                    thumbnails.forEach(thumb => {
+                        thumb.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked thumbnail
+                    this.classList.add('active');
+                    
+                    // Update active index
+                    activeIndex = index;
+                    
+                    // Update product count
+                    updateProductCount();
+                });
+            });
+            
+            // Add interactivity to buttons
+            const addToCartBtn = document.querySelector('.btn-primary');
+            const wishlistBtn = document.querySelector('.btn-secondary');
+            
+            addToCartBtn.addEventListener('click', function() {
+                alert('Product added to cart!');
+                this.innerHTML = '<i class="fas fa-check"></i> Added to Cart';
+                this.style.backgroundColor = '#27ae60';
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+                    this.style.backgroundColor = '';
+                }, 2000);
+            });
+            
+            wishlistBtn.addEventListener('click', function() {
+                const isActive = this.classList.contains('wishlist-active');
+                
+                if (isActive) {
+                    this.innerHTML = '<i class="fas fa-heart"></i> Add to Wishlist';
+                    this.classList.remove('wishlist-active');
+                    alert('Removed from wishlist!');
+                } else {
+                    this.innerHTML = '<i class="fas fa-heart" style="color:#e74c3c"></i> Added to Wishlist';
+                    this.classList.add('wishlist-active');
+                    alert('Added to wishlist!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
